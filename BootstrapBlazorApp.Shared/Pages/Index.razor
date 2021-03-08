@@ -1,0 +1,13 @@
+@page "/"
+
+<Test01 OnConfirms="@OnConfirm" />
+
+@code{ 
+
+    private Task OnConfirm(IEnumerable<Spec> param)
+    {
+        System.Console.WriteLine("Ñ¡Ôñ"+ param.Count().ToString());
+        return Task.CompletedTask;
+    }
+
+}
