@@ -2,12 +2,27 @@
 
 <Test01 OnConfirms="@OnConfirm" />
 
-@code{ 
+@code{
 
     private Task OnConfirm(IEnumerable<Spec> param)
     {
-        System.Console.WriteLine("选择"+ param.Count().ToString());
+        System.Console.WriteLine("选择" + param.Count().ToString());
         return Task.CompletedTask;
     }
 
 }
+
+
+<Tab>
+    <TabItem Text="选择">
+        <Test01 />
+    </TabItem>
+    <TabItem Text="选择">
+        <Test01 OnConfirms="@OnConfirm" />
+    </TabItem>
+    <TabItem Text="选择">
+        <Test01 OnConfirms="@OnConfirm" />
+    </TabItem>
+
+</Tab>
+
