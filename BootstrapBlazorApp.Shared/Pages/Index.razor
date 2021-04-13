@@ -40,10 +40,6 @@
 
 
 @code{
-    /// <summary>
-    /// 管理员页面
-    /// </summary>
-    [Parameter] public string isAdmin { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -51,6 +47,7 @@
 
         await base.OnAfterRenderAsync(firstRender);
 
+        if (TabSetMenu==null) return;
         var flag = false;
 
         foreach (var item in   Pages )
@@ -58,6 +55,7 @@
             TabSetMenu.AddTab(new Dictionary<string, object>
             {
                 [nameof(TabItem.Text)] = item.Key,
+                //[nameof(TabItem.ChildContent)] =  item.Value.Render()
                 [nameof(TabItem.ChildContent)] = flag ? null : item.Value.Render()
                 //[nameof(TabItem.ChildContent)] = new Lazy< RenderFragment>(()=> item.Value.Render())
             });
@@ -85,7 +83,7 @@
             { "AAA",BootstrapDynamicComponent.CreateComponent<Test01>() },
             { "BBB",BootstrapDynamicComponent.CreateComponent<Test03>() } ,
             { "CCC",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            { "DDD",BootstrapDynamicComponent.CreateComponent<Test02>() } 
+            { "DDD",BootstrapDynamicComponent.CreateComponent<Test02>() }
                   };
 
     private IEnumerable<MenuItem> GetSideMenuItems()
@@ -113,6 +111,6 @@
         [nameof(TabItem.ChildContent)] = (Pages.Where(a => a.Key == text).FirstOrDefault().Value).Render()
     });
 
-    private void AddTabItemChildContent(TabItem item) => item.ChildContent = (Pages.Where(a => a.Key == item.Text).FirstOrDefault().Value).Render();
+    //private void AddTabItemChildContent(TabItem item) => item.ChildContent = (Pages.Where(a => a.Key == item.Text).FirstOrDefault().Value).Render();
 
 }
