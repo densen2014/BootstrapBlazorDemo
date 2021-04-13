@@ -1,28 +1,118 @@
-@page "/"
-
-<Test01 OnConfirms="@OnConfirm" />
+﻿@page "/"
+@*<Test01 OnConfirms="@OnConfirm" />*@
 
 @code{
 
     private Task OnConfirm(IEnumerable<Spec> param)
     {
-        System.Console.WriteLine("ѡ��" + param.Count().ToString());
+        System.Console.WriteLine("选择" + param.Count().ToString());
         return Task.CompletedTask;
     }
 
 }
 
 
-<Tab>
-    <TabItem Text="ѡ��">
+@*<Tab>
+    <TabItem Text="选择">
         <Test01 />
     </TabItem>
-    <TabItem Text="ѡ��">
-        <Test01 OnConfirms="@OnConfirm" />
+    <TabItem Text="选择">
+        <Tab>
+            <TabItem Text="选择">
+                <Test01 />
+            </TabItem>
+            <TabItem Text="选择">
+                <Test02 OnConfirms="@OnConfirm" />
+            </TabItem>
+            <TabItem Text="选择">
+                <Test02 OnConfirms="@OnConfirm" />
+            </TabItem>
+
+        </Tab>
     </TabItem>
-    <TabItem Text="ѡ��">
+    <TabItem Text="选择">
         <Test01 OnConfirms="@OnConfirm" />
     </TabItem>
 
-</Tab>
+</Tab>*@
 
+<Tab @ref="TabSetMenu" OnClickTab="@OnClickTabItem" />
+
+
+@code{
+    /// <summary>
+    /// 管理员页面
+    /// </summary>
+    [Parameter] public string isAdmin { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        await base.OnAfterRenderAsync(firstRender);
+
+        var flag = false;
+
+        foreach (var item in   Pages )
+        {
+            TabSetMenu.AddTab(new Dictionary<string, object>
+            {
+                [nameof(TabItem.Text)] = item.Key,
+                [nameof(TabItem.ChildContent)] = flag ? null : item.Value.Render()
+                //[nameof(TabItem.ChildContent)] = new Lazy< RenderFragment>(()=> item.Value.Render())
+            });
+            flag = true;
+        }
+
+        TabSetMenu.ActiveTab(TabSetMenu.Items.FirstOrDefault());
+    }
+    private Task OnClickTabItem(TabItem item)
+    {
+        if (item.ChildContent == null)
+        {
+            item.ChildContent = (Pages.Where(a => a.Key == item.Text).FirstOrDefault().Value).Render();
+        }
+        return Task.CompletedTask;
+    }
+
+
+    private Tab TabSetMenu { get; set; }
+    private Menu TabMenu { get; set; }
+
+    private Dictionary<string, BootstrapDynamicComponent> Pages =
+        new Dictionary<string, BootstrapDynamicComponent>
+        {
+            { "AAA",BootstrapDynamicComponent.CreateComponent<Test01>() },
+            { "BBB",BootstrapDynamicComponent.CreateComponent<Test03>() } ,
+            { "CCC",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+            { "DDD",BootstrapDynamicComponent.CreateComponent<Test02>() } 
+                  };
+
+    private IEnumerable<MenuItem> GetSideMenuItems()
+    {
+        var menus = new List<MenuItem>();
+        foreach (var item in Pages)
+        {
+            menus.Add(new MenuItem() { Text = item.Key });
+        }
+        return menus;
+    }
+    private Task OnClickMenuItem(MenuItem item)
+    {
+        var text = item.Text;
+        var tabItem = TabSetMenu.Items.FirstOrDefault(i => i.Text == text);
+        if (tabItem == null) AddTabItem(text ?? "");
+        else TabSetMenu.ActiveTab(tabItem);
+        return Task.CompletedTask;
+    }
+
+    private void AddTabItem(string text) => TabSetMenu.AddTab(new Dictionary<string, object>
+    {
+        [nameof(TabItem.Text)] = text,
+        [nameof(TabItem.IsActive)] = true,
+        [nameof(TabItem.ChildContent)] = (Pages.Where(a => a.Key == text).FirstOrDefault().Value).Render()
+    });
+
+    private void AddTabItemChildContent(TabItem item) => item.ChildContent = (Pages.Where(a => a.Key == item.Text).FirstOrDefault().Value).Render();
+
+}

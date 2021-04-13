@@ -1,0 +1,2 @@
+﻿[*.{cs,css,js,json,html,razor}]
+charset = utf-8-bom 
