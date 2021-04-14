@@ -1,7 +1,13 @@
 ﻿@page "/"
 @*<Test01 OnConfirms="@OnConfirm" />*@
 
+<input type="@x" value="123456"/>
+
+<button @onclick="xx" > 点 </button>
 @code{
+    string x= "password";
+
+    void xx() { x = x == "password"?"text": "password"; }
 
     private Task OnConfirm(IEnumerable<Spec> param)
     {
