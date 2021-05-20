@@ -25,4 +25,10 @@
       <Folder Include="Model\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="Component\ApiLinkComponent.razor" />
+      <None Include="Component\ApiLinkFullComponent.razor" />
+      <None Include="Component\SrcComponent.razor" />
+    </ItemGroup>
+
 </Project>
