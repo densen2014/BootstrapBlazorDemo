@@ -1,6 +1,7 @@
 # BootstrapBlazor 的各种Demo 
 
 演示地址 https://alexssr88.azurewebsites.net/incell
+视频 https://youtu.be/dO69iPMHYlc
 ----
 
 BootstrapBlazor是 Bootstrap 风格的 Blazor UI 组件库
