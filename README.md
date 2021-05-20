@@ -1,11 +1,9 @@
 BootstrapBlazor 的各种Demo 
 ----
--
--
--
--
 
-其他项目
+
+其他Demo
+----
 BootstrapBlazor的FreeSql数据注入服务扩展包
 https://www.nuget.org/packages/Densen.FreeSql.Extensions.BootstrapBlazor
 
