@@ -1,4 +1,4 @@
-using BootstrapBlazor.Components;
+﻿using BootstrapBlazor.Components;
 using System.Collections.Generic;
 
 namespace BootstrapBlazorApp.Shared.Shared
@@ -43,7 +43,8 @@ namespace BootstrapBlazorApp.Shared.Shared
                 new MenuItem() { Text = "Index", Icon = "fa fa-fw fa-fa", Url = "" },
                 new MenuItem() { Text = "Counter", Icon = "fa fa-fw fa-check-square-o", Url = "counter" },
                 new MenuItem() { Text = "FetchData", Icon = "fa fa-fw fa-database", Url = "fetchdata" },
-                new MenuItem() { Text = "Table", Icon = "fa fa-fw fa-table", Url = "table" }
+                new MenuItem() { Text = "Table", Icon = "fa fa-fw fa-table", Url = "table" },
+                new MenuItem() { Text = "InCell", Icon = "fa fa-fw fa-table", Url = "incell" }
             };
 
             return menus;

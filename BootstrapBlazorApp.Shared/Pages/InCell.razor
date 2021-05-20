@@ -1,0 +1,58 @@
+﻿@page "/incell"
+@inject ToastService toastService
+
+@*你现在编辑的是 ID: @editingitem.Id  Name: @editingitem.Name  Address: @editingitem.Address*@
+
+@foreach (var item in Items)
+{
+    <IncellComponent Model="item" ModelChanged="@Hi" />
+}
+
+<Footer class="fixed-bottom" Text="@($"你现在编辑的是 ID: {editingitem.Id}  Name: {editingitem.Name}  Address: {editingitem.Address}")"></Footer>
+
+@*<Footer>
+    <div class="text-center flex-fill">
+        你现在编辑的是 ID: @editingitem.Id  Name: @editingitem.Name  Address: @editingitem.Address
+    </div>
+</Footer>*@
+
+@code{
+
+    /// <summary>
+    ///
+    /// </summary>
+    protected static readonly Random random = new();
+    protected Foo editingitem = new Foo();
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
+    internal static List<Foo> GenerateItems() => Enumerable.Range(1, 80).Select(i => new Foo()
+    {
+        Id = i,
+        Name = $"张三 {i:d4}",
+        DateTime = DateTime.Now.AddDays(i - 1),
+        Address = $"上海市普陀区金沙江路 {random.Next(1000, 2000)} 弄",
+        Count = random.Next(1, 100),
+        Complete = random.Next(1, 100) > 50,
+        Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+    }).ToList();
+
+    /// <summary>
+    ///
+    /// </summary>
+    protected static List<Foo> Items { get; } = GenerateItems();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    Task Hi(Foo item)
+    {
+        editingitem = item;
+        toastService.Success($"你现在编辑的是 ID: {editingitem.Id}  Name: {editingitem.Name}  Address: {editingitem.Address}");
+        return Task.CompletedTask;
+    }
+}

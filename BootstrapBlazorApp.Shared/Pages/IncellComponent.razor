@@ -1,0 +1,45 @@
+﻿<ValidateForm class="form-inline" Model="@Model" >
+    <div class="row" style="border: 1px solid;">
+        <div class="form-group col-1">
+            @(Model.Id)
+        </div>
+        <div class="form-group col-2">
+            <BootstrapInput @bind-Value="@Model.Name" placeholder="不可为空，50字以内" maxlength="50" @onchange="@Hi" @onblur="@Hi" />
+        </div>
+        <div class="form-group col-1">
+            <BootstrapPassword @bind-Value="@Model.Password" maxlength="50"  @onchange="@Hi" />
+        </div>
+        <div class="form-group col-2">
+            <BootstrapInput @bind-Value="@Model.Address" placeholder="不可为空，50字以内" maxlength="50"  @onchange="@Hi" />
+        </div>
+        <div class="form-group col-2">
+            <DateTimePicker @bind-Value="@Model.DateTime"  @onchange="@Hi" />
+        </div>
+        <div class="form-group col-2">
+            <Select @bind-Value="@Model.Education"  @onchange="@Hi" />
+        </div>
+        <div class="form-group col-1">
+            <Switch @bind-Value="@Model.Complete" ShowInnerText="true"  @onchange="@Hi" />
+        </div>
+        <div class="form-group col-1">
+            <Button Text="OK" OnClick="@Hi" />
+        </div>
+    </div>
+</ValidateForm>
+
+@code {
+
+    [Parameter]
+    public Foo Model { get; set; } = new Foo() { Name = "张三" };
+
+    /// <summary>
+    /// 调试信息回调方法
+    /// </summary>
+    [Parameter]
+    public EventCallback<Foo> ModelChanged { get; set; }
+
+    async Task Hi()
+    {
+       if (ModelChanged.HasDelegate) await ModelChanged.InvokeAsync(Model);
+    }
+}

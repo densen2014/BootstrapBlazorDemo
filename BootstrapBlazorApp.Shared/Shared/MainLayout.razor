@@ -1,7 +1,7 @@
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 
 <Layout SideWidth="0" IsPage="true" ShowGotoTop="true" ShowCollapseBar="true"
-        IsFullSide="@IsFullSide" IsFixedHeader="@IsFixedHeader" IsFixedFooter="@IsFixedFooter" ShowFooter="@ShowFooter"
+        IsFullSide="@IsFullSide" IsFixedHeader="@IsFixedHeader"  
         Menus="@Menus" UseTabSet="@UseTabSet" AdditionalAssemblies="new[] { GetType().Assembly }" class="@Theme">
     <Header>
         <span class="ml-3 flex-sm-fill d-none d-sm-block">Bootstrap of Blazor</span>
@@ -30,11 +30,6 @@
             @Body
         </CascadingValue>
     </Main>
-    <Footer>
-        <div class="text-center flex-fill">
-            <a class="page-layout-demo-footer-link" href="https://gitee.com/LongbowEnterprise/BootstrapAdmin" target="_blank">Bootstrap Admin</a>
-        </div>
-    </Footer>
 </Layout>
 
 <Drawer Placement="Placement.Right" @bind-IsOpen="@IsOpen" IsBackdrop="true">
