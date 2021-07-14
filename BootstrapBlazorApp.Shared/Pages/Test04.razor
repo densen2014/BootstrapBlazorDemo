@@ -3,12 +3,24 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        for (int i = 0; i < 100; i++)
-        {
-            Items2.Add(new Spec { id = i, Name = "Test02_name" + i });
-        }
 
     }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (!firstRender) return;
+        await 刷新数据();
+    }
+    private async Task 刷新数据()
+    {
+        await Task.Delay(1000);
+        for (int i = 0; i < 100; i++)
+        {
+            Items2.Add(new Spec { id = i, Name = "Test04_name" + i });
+        }
+        await table1.QueryAsync();
+    }
+
 }
 
 
@@ -19,10 +31,11 @@
        ShowDefaultButtons="false" 
        AutoGenerateColumns="true"
        OnQueryAsync="@OnQueryAsync"
-       >
+       @ref="@table1">
 </Table>
 
 @code{
+    Table<Spec> table1;
     private List<Spec>? Items2 { get; set; } = new List<Spec>();
 
     private Task<QueryData<Spec>> OnQueryAsync(QueryPageOptions options)
@@ -43,6 +56,6 @@
         });
     }
 
-   
+
 
 }
