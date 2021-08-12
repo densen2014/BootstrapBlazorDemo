@@ -18,6 +18,19 @@
 }
 
 
+<Search IgnoreCase="true" IsLikeMatch="true" IsAutoFocus="true" PlaceHolder="搜索示例" Items="@Items" OnSearch="@OnSearch1"></Search>
+
+
+@code {
+	private IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
+
+	private Task OnSearch1(string searchText)
+	{
+		System.Console.WriteLine($"SearchText: {searchText}");
+		return Task.CompletedTask;
+	}
+}
+
 @*<Tab>
     <TabItem Text="选择">
         <Test01 />
