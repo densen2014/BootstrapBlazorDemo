@@ -2,8 +2,18 @@
 
 <Search IgnoreCase="true" IsLikeMatch="true" IsAutoFocus="true" PlaceHolder="搜索示例" Items="@Items" OnSearch="@OnSearch1"></Search>
 
+<Switch @bind-Value="@EnableDateTimeRange" Color="Color.Success" />
+<DateTimeRange @bind-Value="@DateTimeRange" IsDisabled="@(!EnableDateTimeRange)" />
+
 
 @code {
+	/// <summary>
+	/// 使用日期范围
+	/// </summary>
+	public bool EnableDateTimeRange { get; set; } = false;
+	public DateTimeRangeValue DateTimeRange { get; set; } = new DateTimeRangeValue();
+
+
 	private IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
 
 	private Task OnSearch1(string searchText)
