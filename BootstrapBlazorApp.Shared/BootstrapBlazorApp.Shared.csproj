@@ -14,11 +14,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="BootstrapBlazor" Version="5.1.4" />
+        <PackageReference Include="BootstrapBlazor" Version="5.17.4" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.8" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.11" />
     </ItemGroup>
 
     <ItemGroup>

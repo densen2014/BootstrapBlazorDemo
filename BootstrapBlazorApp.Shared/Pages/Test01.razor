@@ -1,4 +1,5 @@
-﻿
+﻿@using BootstrapBlazor.Components
+
 @code{
     protected override void OnInitialized()
     {
@@ -8,7 +9,7 @@
             Items2.Add(new Spec { id = i, Name = "Test01_name" + i });
         }
 
-        SelectedRows2 = Items2.Take(5).Skip(3);
+        SelectedRows2 = Items2.Take(5).Skip(3).ToList();
     }
 
     //public class Spec
@@ -24,8 +25,8 @@
        IsPagination="true"
        IsStriped="true" IsBordered="true" IsMultipleSelect="true"
        ShowToolbar="true" @bind-SelectedRows="@SelectedRows2"
-       ShowDefaultButtons="false" AutoGenerateColumns="true"
-       OnQueryAsync="@OnQueryAsync">
+       ShowDefaultButtons="true" AutoGenerateColumns="true"
+       OnQueryAsync="@OnQueryAsync" OnSaveAsync="SaveAsync">
 </Table>
 <Button Text="确定" Icon="fa fa-check-square-o" OnClick="@OnConfirm" />
 <p class="mt-3">选中：</p>
@@ -39,7 +40,7 @@
 @code{
     private List<Spec>? Items2 { get; set; } = new List<Spec>();
 
-    [Parameter] public IEnumerable<Spec> SelectedRows2 { get; set; } = new List<Spec>();
+    [Parameter] public List<Spec> SelectedRows2 { get; set; } = new List<Spec>();
     //private IEnumerable<Spec> SelectedRows2 = new List<Spec>();
     private Task<QueryData<Spec>> OnQueryAsync(QueryPageOptions options)
     {
@@ -67,6 +68,18 @@
     private async Task OnConfirm()
     {
         await OnConfirms.InvokeAsync(SelectedRows2);
+    }
+    /// <summary>
+    /// 保存方法
+    /// </summary>
+    /// <param name="model"></param>
+    /// <param name="changedType"></param>
+    /// <returns></returns>
+    public Task<bool> SaveAsync(Spec model, BootstrapBlazor.Components.ItemChangedType changedType)
+    {
+        // 增加数据演示代码
+
+        return Task.FromResult(true);
     }
 
 }

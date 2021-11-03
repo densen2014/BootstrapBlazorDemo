@@ -1,4 +1,4 @@
-using BootstrapBlazor.Components;
+﻿using BootstrapBlazor.Components;
 using BootstrapBlazorApp.Shared.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,7 +25,7 @@ namespace BootstrapBlazorApp.Server
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            services.AddBootstrapBlazor(setupAction: options =>
+            services.AddBootstrapBlazor(localizationAction: options =>
             {
                 options.AdditionalJsonAssemblies = new[] { GetType().Assembly };
             });
