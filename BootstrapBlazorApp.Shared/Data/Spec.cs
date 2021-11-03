@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class Spec
+ public class Spec
 {
     [AutoGenerateColumn(Editable = false)]
     [DisplayName("艾迪")]
