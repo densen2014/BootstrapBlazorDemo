@@ -8,6 +8,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddBootstrapBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddLogging(builder => builder.AddFileLogger());
 
 //var cultureInfo = new CultureInfo("zh-CN");
 //CultureInfo.DefaultThreadCurrentCulture = cultureInfo;

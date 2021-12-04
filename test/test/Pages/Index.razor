@@ -6,19 +6,46 @@
 <DateTimeRange @bind-Value="@DateTimeRange" IsDisabled="@(!EnableDateTimeRange)" />
 
 
+<Tab>
+    <TabItem Text="ErrorHandle">
+        <Button Icon="fa fa-fa" Text="测试" OnClick="OnClick" />
+
+        <ErrorLogger OnErrorHandleAsync="OnErrorHandleAsync">
+            <Button Icon="fa fa-fa" Text="测试" OnClick="OnClick" />
+        </ErrorLogger>
+    </TabItem>
+
+</Tab>
 @code {
-	/// <summary>
-	/// 使用日期范围
-	/// </summary>
-	public bool EnableDateTimeRange { get; set; } = false;
-	public DateTimeRangeValue DateTimeRange { get; set; } = new DateTimeRangeValue();
+    [Inject] private SwalService? SwalService { get; set; }
+
+    /// <summary>
+    /// 使用日期范围
+    /// </summary>
+    public bool EnableDateTimeRange { get; set; } = false;
+    public DateTimeRangeValue DateTimeRange { get; set; } = new DateTimeRangeValue();
 
 
-	private IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
+    private IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
 
-	private Task OnSearch1(string searchText)
-	{
-		System.Console.WriteLine($"SearchText: {searchText}");
-		return Task.CompletedTask;
-	}
+    private Task OnSearch1(string searchText)
+    {
+        System.Console.WriteLine($"SearchText: {searchText}");
+        return Task.CompletedTask;
+    }
+
+    private void OnClick()
+    {
+        var a = 0;
+        _ = 1 / a;
+    }
+
+    private Task OnErrorHandleAsync(ILogger logger, Exception ex) => SwalService.Show(new SwalOption()
+        {
+            Category = SwalCategory.Error,
+            Title = "Oops...",
+            Content = ex.Message,
+            ShowFooter = true,
+        });
+
 }
