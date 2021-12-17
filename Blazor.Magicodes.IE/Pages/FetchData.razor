@@ -3,12 +3,16 @@
 <PageTitle>Weather forecast</PageTitle>
 
 @using Blazor.Magicodes.IE.Data
+@using static Blazor.Magicodes.IE.ImportExportsService
 @inject WeatherForecastService ForecastService
 
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
-<button @onclick="模板下载"> 导出 </button>
+<button @onclick="模板下载Excel"> 导出Excel </button>
+<button @onclick="模板下载PDF"> 导出PDF </button>
+<button @onclick="模板下载Word"> 导出Word </button>
+<button @onclick="模板下载Html"> 导出Html </button>
 
 <h3>@msg</h3>
 
@@ -50,16 +54,22 @@ else
     {
         forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
     }
-    string msg;
-    private async Task 模板下载()
+
+    string msg="";
+    private async Task 模板下载Excel() =>await 模板下载(ExportType.Excel);
+    private async Task 模板下载PDF()=>await 模板下载(ExportType.Pdf);
+    private async Task 模板下载Word()=>await 模板下载(ExportType.Word);
+    private async Task 模板下载Html()=>await 模板下载(ExportType.Html);
+
+    private async Task 模板下载(ExportType exportType = ExportType.Excel)
     {
         List<WeatherForecast> items = forecasts.ToList();
         var ufilename = items == null ? "模板" : "新数据";
-        var sFileName = ufilename + ".xlsx";
+        var sFileName = ufilename;
         var filename = Path.Combine("Temp", sFileName);
         if (!Directory .Exists (Path.Combine("Temp"))) Directory.CreateDirectory(Path.Combine("Temp"));
-        await ImportExportService.ExportToExcel(filename, items);
+        var res = await ImportExportService.ExportToExcel(filename, items,exportType);
         //ToastService?.Success("提示", ufilename + "已生成");
-        msg = sFileName + "已生成";
+        msg +=$"{res}已生成;";
     }
 }
