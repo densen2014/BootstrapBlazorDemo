@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="6.0.15" />
-	  <PackageReference Include="Longbow.Logging" Version="5.2.0" />
+    <PackageReference Include="BootstrapBlazor" Version="6.2.6" />
+	  <PackageReference Include="Longbow.Logging" Version="6.0.2" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,18 @@
+﻿@page "/"
+@using BlazorApp2.Data
+
+<PageTitle>Index</PageTitle>
+
+<h1>三段绑定,逐字输入</h1>
+
+ 
+
+<input @bind="one.temperatureCs.TemperatureC1"  @bind:event="oninput" />
+@one.temperatureCs.TemperatureC1
+
+
+@code{
+    WeatherForecast one { get; set; } = new WeatherForecast() { temperatureCs = new TemperatureCs() { TemperatureC1 = "1111" } };
+
+     
+}

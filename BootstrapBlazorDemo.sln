@@ -15,9 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test\test.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Magicodes.IE", "Blazor.Magicodes.IE\Blazor.Magicodes.IE.csproj", "{95472BAF-2635-43F7-830B-8A93286C7F51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.BB.Table.Sqlite", "Demo.BB.Table.Sqlite\Demo.BB.Table.Sqlite.csproj", "{CC3246B7-D84F-44DE-AF08-2F5625615AAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.BB.Table.Sqlite", "Demo.BB.Table.Sqlite\Demo.BB.Table.Sqlite.csproj", "{CC3246B7-D84F-44DE-AF08-2F5625615AAD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "表格ORM快速入门", "表格ORM快速入门", "{7E05C88F-90C4-4766-A3AE-AD377F504E86}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor", "..\BootstrapBlazor\src\BootstrapBlazor\BootstrapBlazor.csproj", "{0C3D7880-7AE3-4BB4-816D-1CC0C38CEEFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{CC3246B7-D84F-44DE-AF08-2F5625615AAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC3246B7-D84F-44DE-AF08-2F5625615AAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC3246B7-D84F-44DE-AF08-2F5625615AAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C3D7880-7AE3-4BB4-816D-1CC0C38CEEFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C3D7880-7AE3-4BB4-816D-1CC0C38CEEFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C3D7880-7AE3-4BB4-816D-1CC0C38CEEFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C3D7880-7AE3-4BB4-816D-1CC0C38CEEFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
