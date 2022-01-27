@@ -18,6 +18,8 @@ namespace Demo.BB.Table.Sqlite.Pages
     public partial class Index
     {
 
+        [Inject] protected ToastService ToastService { get; set; }
+
         /// <summary>
         ///
         /// </summary>
@@ -116,7 +118,11 @@ namespace Demo.BB.Table.Sqlite.Pages
         }
 
         private List<Foo>? Items { get; set; } = Foo.GenerateFoo();
-        private List<DetailRow>? DetailRows(int i) => DetailRow.GenerateDetailRow(i);
+        private List<DetailRow>? DetailRows(int i)
+        {
+            ToastService.Success($"展开详情行 {i}");
+           return DetailRow.GenerateDetailRow(i);
+        }
 
         public RenderFragment TablesDetailRow() => builder =>
         {
@@ -127,20 +133,21 @@ namespace Demo.BB.Table.Sqlite.Pages
             builder.AddAttribute(4, nameof(Table<Foo>.DetailRowTemplate), GenerateDetailRow());
             builder.AddAttribute(5, nameof(Table<Foo>.AutoGenerateColumns), true);
             builder.CloseComponent();
-        }; 
+        };
 
-    Func<Table<Foo>, Task>? OnAfterRenderCallback()
+        Func<Table<Foo>, Task>? OnAfterRenderCallback()
         {
             return _ => Task.CompletedTask;
         }
 
 
-        private RenderFragment<Foo> GenerateDetailRow()=>item => builder =>
-            {
-                builder.OpenComponent(0, typeof(Table<DetailRow>));
-                builder.AddAttribute(1, nameof(Table<DetailRow>.Items), DetailRows(item.Id));
-                builder.CloseComponent();
-            };
+        private RenderFragment<Foo> GenerateDetailRow() => item => builder =>
+        {
+            builder.OpenComponent(0, typeof(Table<DetailRow>));
+            builder.AddAttribute(1, nameof(Table<DetailRow>.Items), DetailRows(item.Id));
+            builder.AddAttribute(2, nameof(Table<DetailRow>.AutoGenerateColumns), true);
+            builder.CloseComponent();
+        };
 
     }
 }
