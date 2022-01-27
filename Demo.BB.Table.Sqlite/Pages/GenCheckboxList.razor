@@ -1,0 +1,64 @@
+﻿@page "/GenCheckboxList"
+
+<h3>GenCheckboxList</h3>
+
+@*<CheckboxList Value="@Value1" Items="@Items1"></CheckboxList>
+    <CheckboxList Value="@Value2" Items="@Items2"></CheckboxList>*@
+
+@GenerateCheckboxList()
+
+@code{
+
+    IEnumerable<SelectedItem>? Items1 { get; set; } = new List<SelectedItem>(new List<SelectedItem> {
+                new SelectedItem { Text = "Item 1", Value = "1" },
+                new SelectedItem { Text = "Item 2", Value = "2" },
+                new SelectedItem { Text = "Item 3", Value = "3" },
+                new SelectedItem { Text = "Item 4", Value = "4" }
+     });
+    IEnumerable<SelectedItem>? Items2 { get; set; } = new List<SelectedItem>(new List<SelectedItem> {
+                new SelectedItem { Text = "Item 1", Value = "1" },
+                new SelectedItem { Text = "Item 2", Value = "2" },
+                new SelectedItem { Text = "Item 3", Value = "3" },
+                new SelectedItem { Text = "Item 4", Value = "4" },
+                new SelectedItem { Text = "Item 9", Value = "9" },
+                new SelectedItem { Text = "Item 10", Value = "10" },
+                new SelectedItem { Text = "Item 11", Value = "11" },
+                new SelectedItem { Text = "Item 12", Value = "12" },
+     });
+    IEnumerable<SelectedItem>? Items3 { get; set; } = new List<SelectedItem>(new List<SelectedItem> {
+                new SelectedItem { Text = "Item 1", Value = "1" },
+                new SelectedItem { Text = "Item 2", Value = "2" },
+                new SelectedItem { Text = "Item 3", Value = "3" },
+                new SelectedItem { Text = "Item 4", Value = "4" },
+                new SelectedItem { Text = "Item 9", Value = "9" },
+                new SelectedItem { Text = "Item 10", Value = "10" },
+                new SelectedItem { Text = "Item 11", Value = "11" },
+                new SelectedItem { Text = "Item 12", Value = "12" },
+     });
+
+
+    string Value1 { get; set; } = "1,3";
+    IEnumerable<int> Value2 { get; set; } = new int[] { 9, 10 };
+    IEnumerable<SelectedItem> Value3 { get; set; } = new List<SelectedItem> {
+                new SelectedItem { Text = "Item 1", Value = "1" },
+                new SelectedItem { Text = "Item 2", Value = "2" }, };
+
+
+    private RenderFragment GenerateCheckboxList() => builder =>
+    {
+        builder.OpenComponent(0, typeof(CheckboxList<string>));
+        builder.AddAttribute(1, nameof(CheckboxList<string>.DisplayText), "长沙市");
+        builder.AddAttribute(2, nameof(CheckboxList<string>.ShowLabel), true);
+        builder.AddAttribute(2, nameof(CheckboxList<string>.Value), Value1);
+    //builder.AddAttribute(3, nameof(CheckboxList<IEnumerable<SelectedItem>>.OnSelectedChanged),OnSelectedChanged);
+    //builder.AddAttribute(4, nameof(CheckboxList<IEnumerable<SelectedItem>>.ValueExpression), valueExpression);
+    builder.AddAttribute(7, nameof(CheckboxList<string>.Items), Items3);  //IEnumerable<SelectedItem>
+    builder.CloseComponent();
+    };
+
+    private Task OnSelectedChanged(IEnumerable<SelectedItem> items, string value)
+    {
+        return Task.CompletedTask;
+    }
+
+}
