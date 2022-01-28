@@ -1,13 +1,19 @@
 ﻿@page "/"
 @*<Test01 OnConfirms="@OnConfirm" />*@
 
-<input type="@x" value="123456"/>
+<input type="@x" value="123456" />
+<img src="images/Argo-C.png" />
+<div style="background-image: url('./images/Argo-C.png');height:100px;">
+    <h1>
+        我是logo 我是水印
+    </h1>
+</div>
 
-<button @onclick="xx" > 点 </button>
+<button @onclick="xx"> 点 </button>
 @code{
-    string x= "password";
+    string x = "password";
 
-    void xx() { x = x == "password"?"text": "password"; }
+    void xx() { x = x == "password" ? "text" : "password"; }
 
     private Task OnConfirm(IEnumerable<Spec> param)
     {
@@ -22,38 +28,38 @@
 
 
 @code {
-	private IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
+    private IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
 
-	private Task OnSearch1(string searchText)
-	{
-		System.Console.WriteLine($"SearchText: {searchText}");
-		return Task.CompletedTask;
-	}
+    private Task OnSearch1(string searchText)
+    {
+        System.Console.WriteLine($"SearchText: {searchText}");
+        return Task.CompletedTask;
+    }
 }
 
 @*<Tab>
-    <TabItem Text="选择">
-        <Test01 />
-    </TabItem>
-    <TabItem Text="选择">
-        <Tab>
-            <TabItem Text="选择">
-                <Test01 />
-            </TabItem>
-            <TabItem Text="选择">
-                <Test02 OnConfirms="@OnConfirm" />
-            </TabItem>
-            <TabItem Text="选择">
-                <Test02 OnConfirms="@OnConfirm" />
-            </TabItem>
+        <TabItem Text="选择">
+            <Test01 />
+        </TabItem>
+        <TabItem Text="选择">
+            <Tab>
+                <TabItem Text="选择">
+                    <Test01 />
+                </TabItem>
+                <TabItem Text="选择">
+                    <Test02 OnConfirms="@OnConfirm" />
+                </TabItem>
+                <TabItem Text="选择">
+                    <Test02 OnConfirms="@OnConfirm" />
+                </TabItem>
 
-        </Tab>
-    </TabItem>
-    <TabItem Text="选择">
-        <Test01 OnConfirms="@OnConfirm" />
-    </TabItem>
+            </Tab>
+        </TabItem>
+        <TabItem Text="选择">
+            <Test01 OnConfirms="@OnConfirm" />
+        </TabItem>
 
-</Tab>*@
+    </Tab>*@
 
 <Tab @ref="TabSetMenu" OnClickTab="@OnClickTabItem" />
 
@@ -66,10 +72,10 @@
 
         await base.OnAfterRenderAsync(firstRender);
 
-        if (TabSetMenu==null) return;
+        if (TabSetMenu == null) return;
         var flag = false;
 
-        foreach (var item in   Pages )
+        foreach (var item in Pages)
         {
             TabSetMenu.AddTab(new Dictionary<string, object>
             {
@@ -105,34 +111,34 @@
             { "Test04",BootstrapDynamicComponent.CreateComponent<Test04>() } ,
             { "Test05",BootstrapDynamicComponent.CreateComponent<Test05>() } ,
             { "Test03",BootstrapDynamicComponent.CreateComponent<Test03>() } ,
-            //{ "CCC1",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC2",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC3",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC4",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC5",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC6",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC7",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC8",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC9",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC11",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC12",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC13",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC14",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC15",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC16",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC17",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC18",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC19",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC20",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC21",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC22",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC23",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC24",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC25",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC26",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "CCC27",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
-            //{ "DDD",BootstrapDynamicComponent.CreateComponent<Test02>() }
-        };
+                //{ "CCC1",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC2",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC3",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC4",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC5",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC6",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC7",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC8",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC9",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC11",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC12",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC13",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC14",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC15",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC16",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC17",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC18",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC19",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC20",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC21",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC22",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC23",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC24",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC25",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC26",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "CCC27",BootstrapDynamicComponent.CreateComponent<Test02>() } ,
+                //{ "DDD",BootstrapDynamicComponent.CreateComponent<Test02>() }
+            };
 
     private IEnumerable<MenuItem> GetSideMenuItems()
     {
