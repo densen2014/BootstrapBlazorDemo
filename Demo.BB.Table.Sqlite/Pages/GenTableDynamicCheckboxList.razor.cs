@@ -97,12 +97,17 @@ namespace Demo.BB.Table.Sqlite.Pages
 
             });
 
-            DataTableDynamicContext.OnChanged = async args =>
+            //DataTableDynamicContext.OnChanged = async args =>
+            //{
+            //    if (args.ChangedType == DynamicItemChangedType.Add)
+            //    {
+            //        await ShowAddDia(args);
+            //    }
+            //};
+
+            DataTableDynamicContext.OnAddAsync = async args =>
             {
-                if (args.ChangedType == DynamicItemChangedType.Add)
-                {
-                    await ShowAddDia(args);
-                }
+                    await ShowAddDia(args.FirstOrDefault());
             };
 
             var method = DataTableDynamicContext.OnValueChanged;
@@ -134,7 +139,7 @@ namespace Demo.BB.Table.Sqlite.Pages
             };
         }
 
-        private async Task ShowAddDia(DynamicObjectContextArgs args)
+        private async Task ShowAddDia(IDynamicObject args)
         {
             var items = Utility.GenerateEditorItems<SiteItem>();
 
@@ -163,7 +168,7 @@ namespace Demo.BB.Table.Sqlite.Pages
                     Model.id = id.id;
                     Model.direction = Model.directions.ToString();
                     Model.workplan = id.workplan;
-                    var fitem = args.Items.Last();
+                    var fitem = args;
                     fitem.SetValue(nameof(SiteItem.id), Model.id);
                     fitem.SetValue(nameof(SiteItem.url), Model.url);
                     fitem.SetValue(nameof(SiteItem.keyword), Model.keyword);
@@ -205,14 +210,14 @@ namespace Demo.BB.Table.Sqlite.Pages
             public string state { get; set; }
 
             [Required(ErrorMessage = "Please choose direction")]
-            //[AutoGenerateColumn(Order = 30, Filterable = true, Searchable = true)]
-            [AutoGenerateColumn(Ignore = true)]
+            [AutoGenerateColumn(Order = 30, Filterable = true, Searchable = true)]
+            //[AutoGenerateColumn(Ignore = true)]
             [Display(Name = "direction")]
             public string direction { get; set; }
 
             [Required(ErrorMessage = "Please choose workplan")]
             //[AutoGenerateColumn(Order = 30, Filterable = true, Searchable = true)]
-            [AutoGenerateColumn(Ignore = true)]
+            [AutoGenerateColumn(ComponentType = typeof(CheckboxList<string>))]
             [Display(Name = "workplan")]
             public string workplan { get; set; }
 
