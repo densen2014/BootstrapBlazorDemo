@@ -97,13 +97,12 @@ namespace Demo.BB.Table.Sqlite.Pages
 
             });
 
-            DataTableDynamicContext.OnChanged = args =>
+            DataTableDynamicContext.OnChanged = async args =>
             {
                 if (args.ChangedType == DynamicItemChangedType.Add)
                 {
-                    ShowAddDia(args);
+                    await ShowAddDia(args);
                 }
-                return Task.CompletedTask;
             };
 
             var method = DataTableDynamicContext.OnValueChanged;
@@ -135,7 +134,7 @@ namespace Demo.BB.Table.Sqlite.Pages
             };
         }
 
-        private void ShowAddDia(DynamicObjectContextArgs args)
+        private async Task ShowAddDia(DynamicObjectContextArgs args)
         {
             var items = Utility.GenerateEditorItems<SiteItem>();
 
@@ -176,7 +175,7 @@ namespace Demo.BB.Table.Sqlite.Pages
                     return Task.FromResult(true);
                 }
             };
-            DialogService.ShowEditDialog(option);
+            await DialogService.ShowEditDialog(option);
         }
 
         private SiteItem IncertData(string surl, string skeyword, string sworkplan, string sdirection)
