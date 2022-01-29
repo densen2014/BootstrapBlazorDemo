@@ -196,7 +196,7 @@ namespace Demo.BB.Table.Sqlite.Pages
             public int id { get; set; }
 
             [Required(ErrorMessage = "{0}不能为空")]
-            [AutoGenerateColumn(Order = 10, Filterable = true, Searchable = true)]
+            [AutoGenerateColumn(Order = 10, Filterable = true, Searchable = true, ComponentItems = typeof(Timezone))]
             [Display(Name = "url")]
             public string url { get; set; }
 
