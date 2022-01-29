@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
@@ -64,36 +65,36 @@ namespace Demo.BB.Table.Sqlite.Pages
         {
             DataTableDynamicContext = new DataTableDynamicContext(UserData, (context, col) =>
             {
-                if (col.GetFieldName() == nameof(SiteItem.id))
-                {
-                    col.Editable = false;
-                    col.Width = 30;
-                }
-                if (col.GetFieldName() == nameof(SiteItem.url))
-                {
-                    col.Width = 150;
-                }
-                if (col.GetFieldName() == nameof(SiteItem.keyword))
-                {
-                    //col.Width = 150;
-                }
-                if (col.GetFieldName() == nameof(SiteItem.workplan))
-                {
-                    col.ComponentType = typeof(CheckboxList<string>);
-                    col.Items = SiteItem.timezone;
-                    col.Width = 150;
-                }
-                if (col.GetFieldName() == nameof(SiteItem.direction))
-                {
-                    col.ComponentType = typeof(Select<string>);
-                    col.Items = typeof(SiteItem.Direcitons).ToSelectList();
-                    col.Width = 100;
-                }
-                if (col.GetFieldName() == nameof(SiteItem.state))
-                {
-                    col.Editable = false;
-                    col.Width = 50;
-                }
+                //if (col.GetFieldName() == nameof(SiteItem.id))
+                //{
+                //    col.Editable = false;
+                //    col.Width = 30;
+                //}
+                //if (col.GetFieldName() == nameof(SiteItem.url))
+                //{
+                //    col.Width = 150;
+                //}
+                //if (col.GetFieldName() == nameof(SiteItem.keyword))
+                //{
+                //    //col.Width = 150;
+                //}
+                //if (col.GetFieldName() == nameof(SiteItem.workplan))
+                //{
+                //    col.ComponentType = typeof(CheckboxList<string>);
+                //    col.Items = SiteItem.timezone;
+                //    col.Width = 150;
+                //}
+                //if (col.GetFieldName() == nameof(SiteItem.direction))
+                //{
+                //    col.ComponentType = typeof(Select<string>);
+                //    col.Items = typeof(SiteItem.Direcitons).ToSelectList();
+                //    col.Width = 100;
+                //}
+                //if (col.GetFieldName() == nameof(SiteItem.state))
+                //{
+                //    col.Editable = false;
+                //    col.Width = 50;
+                //}
 
             });
 
@@ -217,12 +218,11 @@ namespace Demo.BB.Table.Sqlite.Pages
 
             [Required(ErrorMessage = "Please choose workplan")]
             //[AutoGenerateColumn(Order = 30, Filterable = true, Searchable = true)]
-            [AutoGenerateColumn(ComponentType = typeof(CheckboxList<string>))]
+            [AutoGenerateColumn(ComponentType = typeof(CheckboxList<string>), ComponentItems = typeof(Timezone) )]
             [Display(Name = "workplan")]
             public string workplan { get; set; }
 
             public Direcitons directions { get; set; }
-
             public static IEnumerable<SelectedItem> timezone = new List<SelectedItem>(new List<SelectedItem>
             {
                 new SelectedItem { Text = "0:00H", Value = "0" },
@@ -230,6 +230,24 @@ namespace Demo.BB.Table.Sqlite.Pages
                 new SelectedItem { Text = "2:00H", Value = "2" },
                 new SelectedItem { Text = "3:00H", Value = "3" },
             });
+            public enum Timezone
+            {
+                /// <summary>
+                /// 0:00H
+                /// </summary>
+                [Description("0:00H")]
+                H0,
+                /// <summary>
+                /// 1:00H
+                /// </summary>
+                [Description("1:00H")]
+                H1,
+                /// <summary>
+                /// 2:00H
+                /// </summary>
+                [Description("2:00H")]
+                H2,
+            }
 
             public static IEnumerable<SelectedItem> GenerateHobbys(IStringLocalizer<SiteItem> localizer) => localizer["Hobbys"].Value.Split(",").Select(i => new SelectedItem(i, i)).ToList();
 
