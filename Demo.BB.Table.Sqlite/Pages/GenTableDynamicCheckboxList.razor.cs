@@ -47,16 +47,16 @@ namespace Demo.BB.Table.Sqlite.Pages
         private void GetData()
         {
             UserData.Rows.Clear();
+            UserData.Columns.Add(nameof(SiteItem.workplan), typeof(string));
             UserData.Columns.Add(nameof(SiteItem.id), typeof(int));
             UserData.Columns.Add(nameof(SiteItem.url), typeof(string));
             UserData.Columns.Add(nameof(SiteItem.keyword), typeof(string));
-            UserData.Columns.Add(nameof(SiteItem.workplan), typeof(string));
             UserData.Columns.Add(nameof(SiteItem.direction), typeof(string));
             UserData.Columns.Add(nameof(SiteItem.state), typeof(string));
 
             for (int i = 0; i < 10; i++)
             {
-                UserData.Rows.Add(i, "item.url", "item.keyword" + i, "2,3", "item.direction", "item.state");
+                UserData.Rows.Add("2,3",i, "item.url", "item.keyword" + i,  "item.direction", "item.state");
 
             }
         }
@@ -78,12 +78,12 @@ namespace Demo.BB.Table.Sqlite.Pages
                 //{
                 //    //col.Width = 150;
                 //}
-                //if (col.GetFieldName() == nameof(SiteItem.workplan))
-                //{
-                //    col.ComponentType = typeof(CheckboxList<string>);
-                //    col.Items = SiteItem.timezone;
-                //    col.Width = 150;
-                //}
+                if (col.GetFieldName() == nameof(SiteItem.workplan))
+                {
+                    col.ComponentType = typeof(CheckboxList<string>);
+                    col.Items = SiteItem.timezone;
+                    col.Width = 150;
+                }
                 //if (col.GetFieldName() == nameof(SiteItem.direction))
                 //{
                 //    col.ComponentType = typeof(Select<string>);
