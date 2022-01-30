@@ -21,22 +21,12 @@ namespace Demo.BB.Table.Sqlite.Pages
         [NotNull]
         private DialogService? DialogService { get; set; }
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<SiteItem>? Localizer { get; set; }
-
-        private IEnumerable<string> WorkplanValue { get; set; } = new string[] { "0", "1", "2", "3" };
 
         private SiteItem Model { get; set; } = new SiteItem()
         {
-            url = "",
-            keyword = "",
             workplan = "",
-            state = "ready"
         };
 
-        [NotNull]
-        private List<SiteItem> Items { get; set; }
 
         protected override void OnInitialized()
         {
@@ -49,14 +39,10 @@ namespace Demo.BB.Table.Sqlite.Pages
             UserData.Rows.Clear();
             UserData.Columns.Add(nameof(SiteItem.workplan), typeof(string));
             UserData.Columns.Add(nameof(SiteItem.id), typeof(int));
-            UserData.Columns.Add(nameof(SiteItem.url), typeof(string));
-            UserData.Columns.Add(nameof(SiteItem.keyword), typeof(string));
-            UserData.Columns.Add(nameof(SiteItem.direction), typeof(string));
-            UserData.Columns.Add(nameof(SiteItem.state), typeof(string));
 
             for (int i = 0; i < 10; i++)
             {
-                UserData.Rows.Add("2,3",i, "item.url", "item.keyword" + i,  "item.direction", "item.state");
+                UserData.Rows.Add("H2,H3",i);
 
             }
         }
@@ -65,52 +51,24 @@ namespace Demo.BB.Table.Sqlite.Pages
         {
             DataTableDynamicContext = new DataTableDynamicContext(UserData, (context, col) =>
             {
-                //if (col.GetFieldName() == nameof(SiteItem.id))
+                //if (col.GetFieldName() == nameof(SiteItem.workplan))
                 //{
-                //    col.Editable = false;
-                //    col.Width = 30;
-                //}
-                //if (col.GetFieldName() == nameof(SiteItem.url))
-                //{
+                //    col.ComponentType = typeof(CheckboxList<string>);
+                //    col.ComponentItems = typeof(SiteItem.Timezone);
+                //    //col.Items =typeof( SiteItem.Timezone).ToSelectList();
                 //    col.Width = 150;
-                //}
-                //if (col.GetFieldName() == nameof(SiteItem.keyword))
-                //{
-                //    //col.Width = 150;
-                //}
-                if (col.GetFieldName() == nameof(SiteItem.workplan))
-                {
-                    col.ComponentType = typeof(CheckboxList<string>);
-                    col.Items = SiteItem.timezone;
-                    col.Width = 150;
-                }
-                //if (col.GetFieldName() == nameof(SiteItem.direction))
-                //{
-                //    col.ComponentType = typeof(Select<string>);
-                //    col.Items = typeof(SiteItem.Direcitons).ToSelectList();
-                //    col.Width = 100;
-                //}
-                //if (col.GetFieldName() == nameof(SiteItem.state))
-                //{
-                //    col.Editable = false;
-                //    col.Width = 50;
                 //}
 
             });
 
-            //DataTableDynamicContext.OnChanged = async args =>
-            //{
-            //    if (args.ChangedType == DynamicItemChangedType.Add)
-            //    {
-            //        await ShowAddDia(args);
-            //    }
-            //};
-
-            DataTableDynamicContext.OnAddAsync = async args =>
+            DataTableDynamicContext.OnChanged = async args =>
             {
-                    await ShowAddDia(args.FirstOrDefault());
+                if (args.ChangedType == DynamicItemChangedType.Add)
+                {
+                    await ShowAddDia(args);
+                }
             };
-
+            
             var method = DataTableDynamicContext.OnValueChanged;
             DataTableDynamicContext.OnValueChanged = async (model, col, val) =>
             {
@@ -140,15 +98,13 @@ namespace Demo.BB.Table.Sqlite.Pages
             };
         }
 
-        private async Task ShowAddDia(IDynamicObject args)
+        private async Task ShowAddDia(DynamicObjectContextArgs args)
         {
             var items = Utility.GenerateEditorItems<SiteItem>();
 
-            var item = items.First(i => i.GetFieldName() == nameof(SiteItem.url));
-            item.Items = SiteItem.GenerateHobbys(Localizer);
-
-            item = items.First(i => i.GetFieldName() == nameof(SiteItem.state));
-            item.Editable = false;
+            //var col = items.First(i => i.GetFieldName() == nameof(SiteItem.workplan));//查找到workplan列
+            //col.ComponentType = typeof(CheckboxList<IEnumerable<string>>); //设定组件类型
+            //col.Items = SiteItem.timezone;
 
             var option = new EditDialogOption<SiteItem>()
             {
@@ -165,17 +121,11 @@ namespace Demo.BB.Table.Sqlite.Pages
                 },
                 OnEditAsync = context =>
                 {
-                    var id = IncertData(Model.url, Model.keyword, string.Join(",", WorkplanValue), Model.directions.ToString());
-                    Model.id = id.id;
-                    Model.direction = Model.directions.ToString();
-                    Model.workplan = id.workplan;
-                    var fitem = args;
+                    var id = 9999;
+                    Model.id = id;
+                    var fitem = args.Items.FirstOrDefault();
                     fitem.SetValue(nameof(SiteItem.id), Model.id);
-                    fitem.SetValue(nameof(SiteItem.url), Model.url);
-                    fitem.SetValue(nameof(SiteItem.keyword), Model.keyword);
                     fitem.SetValue(nameof(SiteItem.workplan), Model.workplan);
-                    fitem.SetValue(nameof(SiteItem.direction), Model.direction);
-                    fitem.SetValue(nameof(SiteItem.state), Model.state);
                     UserData.AcceptChanges();
                     StateHasChanged();
                     return Task.FromResult(true);
@@ -184,10 +134,7 @@ namespace Demo.BB.Table.Sqlite.Pages
             await DialogService.ShowEditDialog(option);
         }
 
-        private SiteItem IncertData(string surl, string skeyword, string sworkplan, string sdirection)
-        {
-            return null;
-        }
+      
 
         public class SiteItem
         {
@@ -195,41 +142,19 @@ namespace Demo.BB.Table.Sqlite.Pages
             [AutoGenerateColumn(Ignore = true)]
             public int id { get; set; }
 
-            [Required(ErrorMessage = "{0}不能为空")]
-            [AutoGenerateColumn(Order = 10, Filterable = true, Searchable = true, ComponentItems = typeof(Timezone))]
-            [Display(Name = "url")]
-            public string url { get; set; }
-
-            [Required(ErrorMessage = "{0}不能为空")]
-            [AutoGenerateColumn(Order = 20, Filterable = true, Searchable = true)]
-            [Display(Name = "keyword")]
-            public string keyword { get; set; }
-
-            [Required(ErrorMessage = "{0}不能为空")]
-            [AutoGenerateColumn(Order = 40, Filterable = true, Searchable = true)]
-            [Display(Name = "state")]
-            public string state { get; set; }
-
-            [Required(ErrorMessage = "Please choose direction")]
-            [AutoGenerateColumn(Order = 30, Filterable = true, Searchable = true)]
-            //[AutoGenerateColumn(Ignore = true)]
-            [Display(Name = "direction")]
-            public string direction { get; set; }
-
             [Required(ErrorMessage = "Please choose workplan")]
             //[AutoGenerateColumn(Order = 30, Filterable = true, Searchable = true)]
             [AutoGenerateColumn(ComponentType = typeof(CheckboxList<string>), ComponentItems = typeof(Timezone) )]
             [Display(Name = "workplan")]
             public string workplan { get; set; }
 
-            public Direcitons directions { get; set; }
-            public static IEnumerable<SelectedItem> timezone = new List<SelectedItem>(new List<SelectedItem>
-            {
-                new SelectedItem { Text = "0:00H", Value = "0" },
-                new SelectedItem { Text = "1:00H", Value = "1" },
-                new SelectedItem { Text = "2:00H", Value = "2" },
-                new SelectedItem { Text = "3:00H", Value = "3" },
-            });
+            //public static IEnumerable<SelectedItem> timezone = new List<SelectedItem>(new List<SelectedItem>
+            //{
+            //    new SelectedItem { Text = "0:00H", Value = "0" },
+            //    new SelectedItem { Text = "1:00H", Value = "1" },
+            //    new SelectedItem { Text = "2:00H", Value = "2" },
+            //    new SelectedItem { Text = "3:00H", Value = "3" },
+            //});
             public enum Timezone
             {
                 /// <summary>
@@ -247,6 +172,11 @@ namespace Demo.BB.Table.Sqlite.Pages
                 /// </summary>
                 [Description("2:00H")]
                 H2,
+                /// <summary>
+                /// 3:00H
+                /// </summary>
+                [Description("3:00H")]
+                H3,
             }
 
             public static IEnumerable<SelectedItem> GenerateHobbys(IStringLocalizer<SiteItem> localizer) => localizer["Hobbys"].Value.Split(",").Select(i => new SelectedItem(i, i)).ToList();
