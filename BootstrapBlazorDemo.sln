@@ -21,6 +21,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "表格ORM快速入门", "�
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor", "..\BootstrapBlazor\src\BootstrapBlazor\BootstrapBlazor.csproj", "{0C3D7880-7AE3-4BB4-816D-1CC0C38CEEFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWinForms1", "BlazorWinForms1\BlazorWinForms1.csproj", "{29A0C336-B565-4732-9278-AEA9C8B77A9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWpf1", "BlazorWpf1\BlazorWpf1.csproj", "{D10760C7-017C-4F58-B0A0-13499C8AF8D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +59,14 @@ Global
 		{0C3D7880-7AE3-4BB4-816D-1CC0C38CEEFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C3D7880-7AE3-4BB4-816D-1CC0C38CEEFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C3D7880-7AE3-4BB4-816D-1CC0C38CEEFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29A0C336-B565-4732-9278-AEA9C8B77A9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29A0C336-B565-4732-9278-AEA9C8B77A9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29A0C336-B565-4732-9278-AEA9C8B77A9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29A0C336-B565-4732-9278-AEA9C8B77A9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D10760C7-017C-4F58-B0A0-13499C8AF8D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D10760C7-017C-4F58-B0A0-13499C8AF8D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D10760C7-017C-4F58-B0A0-13499C8AF8D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D10760C7-017C-4F58-B0A0-13499C8AF8D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
