@@ -1,0 +1,62 @@
+﻿@page "/"
+@attribute [TabItemOption(Text = "Index")]
+<PageTitle>Index</PageTitle>
+
+<Tab>
+    <TabItem Text="表格/添加/编辑">
+        <Table TItem="Foo" Items="@Items" DoubleClickToEdit="true" ShowSearch="true" AutoGenerateColumns="true" ShowDefaultButtons="true" ShowToolbar="true" />
+
+        @code{
+            private List<Foo>? Items { get; set; }
+
+            protected override void OnInitialized()
+            {
+                base.OnInitialized();
+
+                Items = Foo.GenerateFoo();
+                Model = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
+
+            }
+        }
+
+    </TabItem>
+
+
+
+    <TabItem Text="ValidateForm 表单组件">
+
+        <ValidateForm Model="@Model" OnFieldValueChanged="@OnFiledChanged"
+                      OnValidSubmit="@OnValidSubmit1" OnInvalidSubmit="@OnInvalidSubmit1">
+            <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right" AutoGenerateAllItem="true">
+            </EditorForm>
+        </ValidateForm>
+
+        <BlockLogger @ref="Trace" class="mt-3" />
+
+        @code{
+            private BlockLogger? Trace { get; set; }
+
+            private Foo? Model { get; set; }
+
+            private void OnFiledChanged(string field, object? value)
+            {
+                Trace.Log($"{field}:{value}");
+            }
+            private async Task OnValidSubmit1(EditContext context)
+            {
+                await Task.Delay(1000);
+                Trace.Log("OnValidSubmitLog");
+            }
+            private Task OnInvalidSubmit1(EditContext context)
+            {
+                Trace.Log("OnInvalidSubmitLog");
+                return Task.CompletedTask;
+            }
+        }
+
+
+
+    </TabItem>
+</Tab>
+
+ 
